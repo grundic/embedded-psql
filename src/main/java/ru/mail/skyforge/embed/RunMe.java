@@ -15,7 +15,6 @@ import ru.yandex.qatools.embed.postgresql.config.RuntimeConfigBuilder;
 
 import java.io.IOException;
 
-import static ru.yandex.qatools.embed.postgresql.distribution.Version.Main.PRODUCTION;
 import static ru.yandex.qatools.embed.postgresql.distribution.Version.Main.V9_3;
 
 /**
@@ -78,13 +77,11 @@ public class RunMe {
                 final IRuntimeConfig pgRuntimeConfig = new RuntimeConfigBuilder().defaults(Command.PgCtl).daemonProcess(false).build();
                 PostgresStarter<PostgresExecutable, PostgresProcess> runtime = new RestrictedPostgresStarter(pgRuntimeConfig);
 
-//                final IRuntimeConfig pgRuntimeConfig = new RuntimeConfigBuilder().defaults(Command.PgCtl).daemonProcess(false).build();
-//                PostgresStarter<PostgresExecutable, PostgresProcess> runtime = PostgresStarter.getDefaultInstance();
-
                 final PostgresConfig config = new PostgresConfig(
                         V9_3,
                         new AbstractPostgresConfig.Net(hostname, port),
                         new AbstractPostgresConfig.Storage(null, databasePath),
+                        new AbstractPostgresConfig.Locale("UTF-8", "C", "C", "C", "C", "C", "C", "C", true),
                         new AbstractPostgresConfig.Timeout(1000),
                         new AbstractPostgresConfig.Credentials(username, password)
                 );
